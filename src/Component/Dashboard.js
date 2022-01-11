@@ -2,7 +2,7 @@ import React from 'react';
 import { GoogleLogout } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 
-function Display() {
+function Dashboard() {
   const navigate = useNavigate();
   const logout = (res) => {
     navigate('/');
@@ -19,4 +19,4 @@ function Display() {
   );
 }
 
-export default Display;
+export default Dashboard;

@@ -4,8 +4,8 @@ import './App.css';
 
 import GoogleLogin from 'react-google-login';
 
-import Login from './Component/Login';
-import Display from './Component/Display';
+import Homepage from './Component/Homepage';
+import Dashboard from './Component/Dashboard';
 
 function App() {
   return (
@@ -13,8 +13,8 @@ function App() {
       <header className="App-header">
         <BrowserRouter>
           <Routes>
-            <Route path="/" exact element={<Login />} />
-            <Route path="/done" element={<Display />} />
+            <Route path="/" exact element={<Homepage />} />
+            <Route path="/Dashboard" element={<Dashboard />} />
           </Routes>
         </BrowserRouter>
       </header>
