@@ -2,6 +2,9 @@ import React from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 
+const axios = require('axios');
+const FormData = require('form-data');
+
 const clientId = process.env.REACT_APP_CLIENT_KEY;
 
 function Homepage() {
@@ -10,20 +13,30 @@ function Homepage() {
     const Auth = res.code;
     // console.log(Auth);
 
-    fetch('https://oauth2.googleapis.com/token', {
-      method: 'POST',
+    const data = new FormData();
+    data.append('code', Auth);
+    data.append('client_id', clientId);
+    data.append('client_secret', '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');
+    data.append('grant_type', 'authorization_code');
+    data.append('redirect_uri', 'http://localhost:3000');
+
+    const config = {
+      method: 'post',
+      url: 'https://oauth2.googleapis.com/token',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify({
-        code: Auth,
-        client_id: clientId,
-        client_secret: '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',
-        redirect_uri: 'http://localhost:3000',
-        grant_type: 'authorization_code',
-      }),
-    });
+      data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        // console.log(response.data.refresh_token);
+      })
+      .catch(function (error) {
+        // console.log(error);
+      });
+
     navigate('/Dashboard');
   };
 
