@@ -1,28 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 
 const axios = require('axios');
 const FormData = require('form-data');
 
-const clientId = process.env.REACT_APP_CLIENT_KEY;
-const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
-let ref;
-
 function Homepage() {
-  function CheckAccesstoken(accessToken) {
+  const navigate = useNavigate();
+
+  // Check AccessToken is valid or not
+  async function CheckAccesstoken(accessToken) {
     const URL = `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`;
-    let res = 0;
-    fetch(URL).then((response) => {
-      // console.log(response.status);
-      if (true) res = 1;
-    });
-    return res;
+    const res = await fetch(URL);
+    return res.ok;
   }
-  const GenerateAccesstoken = (refreshToken) => {
+
+  // Generate Accesstoken using Refreshtoken
+  function GenerateAccesstoken(refreshToken) {
     const data = new FormData();
-    data.append('client_id', clientId);
-    data.append('client_secret', clientSecret);
+    data.append('client_id', process.env.REACT_APP_CLIENT_KEY);
+    data.append('client_secret', process.env.REACT_APP_CLIENT_SECRET);
     data.append('refresh_token', refreshToken);
     data.append('grant_type', 'refresh_token');
 
@@ -37,22 +34,18 @@ function Homepage() {
 
     axios(config)
       .then(function (response) {
-        // console.log(response.data);
+        localStorage.setItem('Access_Token', response.access_token);
+        localStorage.setItem('Gen_Date', new Date().getTime());
       })
-      .catch(function (error) {
-        // console.log(error);
-      });
-  };
+      .catch(function (error) {});
+  }
 
-  const navigate = useNavigate();
-  const onSuccess = (res) => {
-    const Auth = res.code;
-    // console.log(Auth);
-
+  // Generate RefreshToken Using AuthCode
+  function GenerateRefreshToken(AuthCode) {
     const data = new FormData();
-    data.append('code', Auth);
-    data.append('client_id', clientId);
-    data.append('client_secret', clientSecret);
+    data.append('code', AuthCode);
+    data.append('client_id', process.env.REACT_APP_CLIENT_KEY);
+    data.append('client_secret', process.env.REACT_APP_CLIENT_SECRET);
     data.append('grant_type', 'authorization_code');
     data.append('redirect_uri', 'http://localhost:3000');
 
@@ -67,21 +60,50 @@ function Homepage() {
 
     axios(config)
       .then(function (response) {
-        ref =
-          'ya29.A0ARrdaM-zhvpTcrVbeavwTN_789fi6Yi0LxZoxNK-ZiAi9xFUBp6Ku0Vi-wgLyjtSEICiIQ1JG5UP2MswOfuw00FAKt7-Ywu4a73VREwL2InThm3NxYLD5NuhEGqGg-IbuVGY_jADwdwOvmevmK5Z7U1Cm7sI';
-        // console.log(CheckAccesstoken(ref));
+        localStorage.setItem('Access_Token', response.data.access_token);
+        localStorage.setItem('Refresh_Token', response.data.refresh_token);
+        localStorage.setItem('Gen_Date', new Date().getTime());
       })
       .catch(function (error) {});
+  }
+
+  // After Successfully Login
+  const onSuccess = (res) => {
+    const Auth = res.code;
+    GenerateRefreshToken(Auth);
     navigate('/Dashboard');
   };
 
   const onFailure = (res) => {};
 
+  useEffect(() => {
+    const Access_Token = localStorage.getItem('Acccess_Token');
+    const Refresh_Token = localStorage.getItem('Refresh_Token');
+    if (Refresh_Token == null) {
+      return;
+    }
+
+    let chk = true;
+    const Sec = new Date().getTime - localStorage.getItem('Gen_Date');
+    if (Sec >= 3500000) {
+      chk = false;
+    }
+
+    if (chk) {
+      chk = CheckAccesstoken(Access_Token);
+    }
+
+    if (!chk) {
+      GenerateAccesstoken(Refresh_Token);
+    }
+    navigate('/Dashboard');
+  });
+
   return (
     <div>
       <h1>Welcome To Squadstack Leave Tracker!</h1>
       <GoogleLogin
-        clientId={clientId}
+        clientId={process.env.REACT_APP_CLIENT_KEY}
         buttonText="Login with Google"
         accessType="offline"
         responseType="code"
