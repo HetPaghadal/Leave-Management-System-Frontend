@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
   const navigate = useNavigate();
-  const logout = (res) => {
-    localStorage.clear();
+  const logout = () => {
     navigate('/');
   };
   return (

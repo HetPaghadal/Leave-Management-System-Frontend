@@ -9,8 +9,8 @@ function Homepage() {
   const navigate = useNavigate();
 
   // Check AccessToken is valid or not
-  async function CheckAccesstoken(accessToken) {
-    const URL = `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`;
+  async function CheckAccesstoken(Acccess_Token) {
+    const URL = `${process.env.REACT_APP_TOKENINFO_API}access_token=${Acccess_Token}`;
     const res = await fetch(URL);
     return res.ok;
   }
@@ -37,11 +37,14 @@ function Homepage() {
         localStorage.setItem('Access_Token', response.access_token);
         localStorage.setItem('Gen_Date', new Date().getTime());
       })
-      .catch(function (error) {});
+      .catch(function () {
+        localStorage.clear();
+        navigate('/');
+      });
   }
 
   // Generate RefreshToken Using AuthCode
-  function GenerateRefreshToken(AuthCode) {
+  async function GenerateRefreshToken(AuthCode) {
     const data = new FormData();
     data.append('code', AuthCode);
     data.append('client_id', process.env.REACT_APP_CLIENT_KEY);
@@ -58,13 +61,16 @@ function Homepage() {
       data,
     };
 
-    axios(config)
+    await axios(config)
       .then(function (response) {
         localStorage.setItem('Access_Token', response.data.access_token);
         localStorage.setItem('Refresh_Token', response.data.refresh_token);
         localStorage.setItem('Gen_Date', new Date().getTime());
       })
-      .catch(function (error) {});
+      .catch(function () {
+        localStorage.clear();
+        navigate('/');
+      });
   }
 
   // After Successfully Login
@@ -74,23 +80,21 @@ function Homepage() {
     navigate('/Dashboard');
   };
 
-  const onFailure = (res) => {};
+  const onFailure = () => {};
 
   useEffect(() => {
-    const Access_Token = localStorage.getItem('Acccess_Token');
+    const Access_Token = localStorage.getItem('Access_Token');
     const Refresh_Token = localStorage.getItem('Refresh_Token');
+
     if (Refresh_Token == null) {
       return;
     }
 
     let chk = true;
     const Sec = new Date().getTime - localStorage.getItem('Gen_Date');
+
     if (Sec >= 3500000) {
       chk = false;
-    }
-
-    if (chk) {
-      chk = CheckAccesstoken(Access_Token);
     }
 
     if (!chk) {
