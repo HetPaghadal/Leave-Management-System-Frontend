@@ -123,7 +123,7 @@ function Homepage() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Grid container component="main" sx={{ height: '100vh' }}>
+        <Grid container component="main" sx={{ height: '99vh' }}>
           <CssBaseline />
           <Grid
             item
