@@ -16,7 +16,7 @@ function Homepage() {
   }
 
   // Generate Accesstoken using Refreshtoken
-  function GenerateAccesstoken(refreshToken) {
+  async function GenerateAccesstoken(refreshToken) {
     const data = new FormData();
     data.append('client_id', process.env.REACT_APP_CLIENT_KEY);
     data.append('client_secret', process.env.REACT_APP_CLIENT_SECRET);
@@ -32,9 +32,9 @@ function Homepage() {
       data,
     };
 
-    axios(config)
-      .then(function (response) {
-        localStorage.setItem('Access_Token', response.access_token);
+    await axios(config)
+      .then(async function (response) {
+        localStorage.setItem('Access_Token', response.data.access_token);
         localStorage.setItem('Gen_Date', new Date().getTime());
       })
       .catch(function () {
@@ -62,7 +62,7 @@ function Homepage() {
     };
 
     await axios(config)
-      .then(function (response) {
+      .then(async function (response) {
         localStorage.setItem('Access_Token', response.data.access_token);
         localStorage.setItem('Refresh_Token', response.data.refresh_token);
         localStorage.setItem('Gen_Date', new Date().getTime());
@@ -85,13 +85,12 @@ function Homepage() {
   useEffect(() => {
     const Access_Token = localStorage.getItem('Access_Token');
     const Refresh_Token = localStorage.getItem('Refresh_Token');
-
     if (Refresh_Token == null) {
       return;
     }
 
     let chk = true;
-    const Sec = new Date().getTime - localStorage.getItem('Gen_Date');
+    const Sec = new Date().getTime() - localStorage.getItem('Gen_Date');
 
     if (Sec >= 3500000) {
       chk = false;
@@ -100,6 +99,7 @@ function Homepage() {
     if (!chk) {
       GenerateAccesstoken(Refresh_Token);
     }
+
     navigate('/Dashboard');
   });
 
