@@ -10,5 +10,8 @@
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "editor.tabSize": 2,
-  "eslint.format.enable": true
+  "eslint.format.enable": true,
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  }
 }

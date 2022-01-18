@@ -5,8 +5,8 @@ import Navigate from './Component/Route';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div>
+      <header>
         <Navigate />
       </header>
     </div>
