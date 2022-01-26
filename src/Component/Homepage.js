@@ -10,6 +10,7 @@ import Image1 from './images/signupposter2.png';
 import Squad from './images/Squadstackround.png';
 
 import axios from '../AxiosInstance';
+import styles from '../App.css';
 
 const FormData = require('form-data');
 
@@ -145,6 +146,7 @@ function Homepage() {
   });
 
   const theme = createTheme();
+  const backgroundColor = '#feeae6';
 
   return (
     <div>
@@ -155,7 +157,7 @@ function Homepage() {
           sx={{
             height: '100vh',
             width: '100%',
-            backgroundColor: '#feeae6',
+            backgroundColor: { backgroundColor },
           }}
         >
           <CssBaseline />
@@ -168,7 +170,7 @@ function Homepage() {
             sx={{
               display: 'flex',
               backgroundRepeat: 'no-repeat',
-              backgroundColor: '#feeae6',
+              backgroundColor: { backgroundColor },
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
@@ -189,6 +191,7 @@ function Homepage() {
               <Typography
                 component="h1"
                 variant="h5"
+                // className={styles.center}
                 style={{ 'text-align': 'center' }}
               >
                 Welcome to

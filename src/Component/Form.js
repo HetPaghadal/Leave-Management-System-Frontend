@@ -8,6 +8,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import Button from '@material-ui/core/Button';
+import Style from '../App.css';
 
 const axios = require('axios');
 const FormData = require('form-data');
