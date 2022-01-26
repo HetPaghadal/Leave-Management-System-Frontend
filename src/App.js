@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
 
-import Navigate from './Component/Route';
+import Router from './Component/Route';
 
 function App() {
   return (
     <div>
       <header>
-        <Navigate />
+        <Router />
       </header>
     </div>
   );

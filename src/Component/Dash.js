@@ -28,7 +28,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 
-import CurLeaves from './CurLeaves';
+import CurrentAddedLeaves from './CurrentAddedLeaves';
 import PerticularLeaves from './PerticularLeaves';
 import Title from './Title';
 import AddLeaveDialog from './AddLeaveDialog';
@@ -113,16 +113,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Dash() {
-  function dateFormat(Date) {
-    let dateF = '';
-    const year = Date.getFullYear();
-    const month = Date.getMonth() + 1;
-    const day = Date.getUTCDate();
-    dateF = `${year}-${month}-${day}`;
-    return dateF;
-  }
+function dateFormat(Date) {
+  let dateF = '';
+  const year = Date.getFullYear();
+  const month = Date.getMonth() + 1;
+  const day = Date.getUTCDate();
+  dateF = `${year}-${month}-${day}`;
+  return dateF;
+}
 
+function Dash() {
   const classes = useStyles();
   const navigate = useNavigate();
   const logout = () => {
@@ -268,7 +268,7 @@ function Dash() {
           <Grid container spacing={2}>
             <Grid item xs={8}>
               <Paper className={classes.paper}>
-                <CurLeaves />
+                <CurrentAddedLeaves />
               </Paper>
             </Grid>
             <Grid item xs={4}>

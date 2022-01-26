@@ -12,19 +12,19 @@ import Button from '@material-ui/core/Button';
 const axios = require('axios');
 const FormData = require('form-data');
 
+function dateFormat(date) {
+  let dateF = '';
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getUTCDate();
+  dateF = `${year}-${month}-${day}`;
+  return dateF;
+}
+
 function Form({ handleClose }) {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [reason, setReason] = useState('');
-
-  function dateFormat(date) {
-    let dateF = '';
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getUTCDate();
-    dateF = `${year}-${month}-${day}`;
-    return dateF;
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

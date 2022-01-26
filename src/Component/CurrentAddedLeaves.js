@@ -1,30 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import axios from '../AxiosInstance';
 import Title from './Title';
 
 function CurLeaves() {
   const [list, setList] = React.useState([]);
 
   useEffect(() => {
-    let Token = localStorage.getItem('django_Token');
-    Token = `token ${Token}`;
-    fetch('http://127.0.0.1:8000/leaves/leaves/', {
-      method: 'get',
-      headers: new Headers({
-        Authorization: Token,
-      }),
-    })
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setList(result);
+    async function fetchAPI() {
+      let Token = localStorage.getItem('django_Token');
+      Token = `token ${Token}`;
+
+      const data = new FormData();
+
+      const config = {
+        method: 'get',
+        url: `leaves/leaves/`,
+        headers: {
+          Authorization: Token,
         },
-        (error) => {},
-      );
+        data,
+      };
+
+      await axios(config)
+        .then(async (response) => {
+          setList(response.data);
+        })
+        .catch(function (error) {});
+    }
+
+    fetchAPI();
   }, []);
 
   return (

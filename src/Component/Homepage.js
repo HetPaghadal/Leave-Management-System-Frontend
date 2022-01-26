@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,20 +9,16 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Image1 from './images/signupposter2.png';
 import Squad from './images/Squadstackround.png';
 
-const axios = require('axios');
+import axios from '../AxiosInstance';
+
 const FormData = require('form-data');
 
 function Homepage() {
   const navigate = useNavigate();
-  // Check AccessToken is valid or not
-  // async function CheckAccesstoken(Acccess_Token) {
-  //   const URL = `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${Acccess_Token}`;
-  //   const res = await fetch(URL);
-  //   return res.ok;
-  // }
 
   // Generate Accesstoken using Refreshtoken
-  async function GenerateAccesstoken(refreshToken) {
+
+  async function generateAccessToken(refreshToken) {
     const data = new FormData();
     data.append('client_id', process.env.REACT_APP_CLIENT_KEY);
     data.append('client_secret', process.env.REACT_APP_CLIENT_SECRET);
@@ -50,7 +46,7 @@ function Homepage() {
   }
 
   // Generate RefreshToken Using AuthCode
-  async function GenerateRefreshToken(AuthCode) {
+  async function generateRefreshToken(AuthCode) {
     let data = new FormData();
     data.append('code', AuthCode);
     data.append('client_id', process.env.REACT_APP_CLIENT_KEY);
@@ -80,45 +76,47 @@ function Homepage() {
 
     const Access_Token = localStorage.getItem('Access_Token');
 
-    await fetch(
-      `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${Access_Token}`,
-    )
-      .then((response) => response.json())
-      .then(async (response) => {
-        localStorage.setItem('first_name', response.given_name);
-        localStorage.setItem('last_name', response.family_name);
-        localStorage.setItem('email', response.email);
+    data = new FormData();
+    config = {
+      method: 'get',
+      url: `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${Access_Token}`,
+    };
 
-        data = new FormData();
-        data.append('first_name', localStorage.getItem('first_name'));
-        data.append('last_name', localStorage.getItem('last_name'));
-        data.append('username', localStorage.getItem('first_name'));
-        data.append('email', localStorage.getItem('email'));
+    await axios(config).then(async (response) => {
+      localStorage.setItem('first_name', response.data.given_name);
+      localStorage.setItem('last_name', response.data.family_name);
+      localStorage.setItem('email', response.data.email);
 
-        config = {
-          method: 'post',
-          url: 'http://127.0.0.1:8000/employees/employees/',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          data,
-        };
+      data = new FormData();
+      data.append('first_name', localStorage.getItem('first_name'));
+      data.append('last_name', localStorage.getItem('last_name'));
+      data.append('username', localStorage.getItem('first_name'));
+      data.append('email', localStorage.getItem('email'));
 
-        await axios(config)
-          .then(async (res) => {
-            localStorage.setItem('user_id', res.data.detail.id);
-            localStorage.setItem('django_Token', res.data.Token);
-          })
-          .catch(() => {
-            navigate('/');
-          });
-      });
+      config = {
+        method: 'post',
+        url: '/employees/employees/',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        data,
+      };
+
+      await axios(config)
+        .then(async (res) => {
+          localStorage.setItem('user_id', res.data.detail.id);
+          localStorage.setItem('django_Token', res.data.Token);
+        })
+        .catch(() => {
+          navigate('/');
+        });
+    });
   }
 
   // After Successfully Login
   const onSuccess = async (res) => {
     const Auth = res.code;
-    await GenerateRefreshToken(Auth);
+    await generateRefreshToken(Auth);
 
     navigate('/dashboard');
   };
@@ -132,14 +130,15 @@ function Homepage() {
     }
 
     let chk = true;
-    const Sec = new Date().getTime() - localStorage.getItem('Gen_Date');
+    const ExcessTokenExpiry =
+      new Date().getTime() - localStorage.getItem('Gen_Date');
 
-    if (Sec >= 3500000) {
+    if (ExcessTokenExpiry >= 3500000) {
       chk = false;
     }
 
     if (!chk) {
-      GenerateAccesstoken(Refresh_Token);
+      generateAccessToken(Refresh_Token);
     }
 
     navigate('/Dashboard');
