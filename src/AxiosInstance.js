@@ -4,8 +4,8 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:8000/',
-  // baseURL: 'https://leave-tracker1.herokuapp.com/',
+  // baseURL: 'http://127.0.0.1:8000/',
+  baseURL: 'https://leave-tracker1.herokuapp.com/',
 });
 
 export default instance;
