@@ -92,18 +92,15 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     flexDirection: 'column',
   },
-  fixedHeight: {
-    height: '240rem',
-  },
 }));
 
 function dateFormat(Date) {
-  let dateF = '';
+  let FormatedDate = '';
   const year = Date.getFullYear();
   const month = Date.getMonth() + 1;
   const day = Date.getUTCDate();
-  dateF = `${year}-${month}-${day}`;
-  return dateF;
+  FormatedDate = `${year}-${month}-${day}`;
+  return FormatedDate;
 }
 
 function Dash() {

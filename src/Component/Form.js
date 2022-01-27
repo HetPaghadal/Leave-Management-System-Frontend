@@ -9,16 +9,18 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import Button from '@material-ui/core/Button';
 
+// import styles from '../App.css';
+
 const axios = require('axios');
 const FormData = require('form-data');
 
 function dateFormat(date) {
-  let dateF = '';
+  let FormatedDate = '';
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getUTCDate();
-  dateF = `${year}-${month}-${day}`;
-  return dateF;
+  FormatedDate = `${year}-${month}-${day}`;
+  return FormatedDate;
 }
 
 function Form({ handleClose }) {

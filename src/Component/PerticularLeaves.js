@@ -32,7 +32,7 @@ function PerticularLeaves(props) {
         .catch();
     }
     fetchAPI();
-  }, [Date]);
+  });
 
   return (
     <>

@@ -29,13 +29,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: '0rem', // keep right padding when drawer closed
   },
   toolbarIcon: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    padding: '0 8px',
+    padding: '0 1rem',
     ...theme.mixins.toolbar,
   },
   appBar: {
@@ -97,9 +97,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: '240rem',
   },
 }));
 

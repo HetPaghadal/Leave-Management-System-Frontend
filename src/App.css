@@ -27,7 +27,7 @@
 }
 
 .center {
-  text-align: center;
+  padding: 37;
 }
 
 @keyframes App-logo-float {
