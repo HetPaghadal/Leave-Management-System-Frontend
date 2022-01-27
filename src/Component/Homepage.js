@@ -117,10 +117,6 @@ function Homepage() {
   const onSuccess = async (res) => {
     const Auth = res.code;
     await generateRefreshToken(Auth);
-<<<<<<< HEAD
-=======
-
->>>>>>> 55bfc440695e8285c184711db56a3f87112bfec0
     navigate('/dashboard');
   };
 
