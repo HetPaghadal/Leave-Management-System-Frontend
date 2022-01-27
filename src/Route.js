@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Homepage from './Component/Homepage';
-import Dashboard from './Component/Dash';
+import Dash from './Component/Dash';
 
 function Router() {
   return (
@@ -10,7 +10,7 @@ function Router() {
       <BrowserRouter>
         <Routes>
           <Route path="/" exact element={<Homepage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dash />} />
         </Routes>
       </BrowserRouter>
     </div>
