@@ -52,7 +52,7 @@ function Homepage() {
     data.append('client_id', process.env.REACT_APP_CLIENT_KEY);
     data.append('client_secret', process.env.REACT_APP_CLIENT_SECRET);
     data.append('grant_type', 'authorization_code');
-    data.append('redirect_uri', 'http://localhost:3000');
+    data.append('redirect_uri', 'https://leaves-tracker1.netlify.app');
 
     let config = {
       method: 'post',
@@ -118,6 +118,7 @@ function Homepage() {
     const Auth = res.code;
     await generateRefreshToken(Auth);
     navigate('/dashboard');
+    // Navigate
   };
 
   const onFailure = () => {};
