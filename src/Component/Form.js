@@ -60,7 +60,7 @@ function Form({ handleClose }) {
 
   return (
     <FormControl>
-      <Paper className="center">
+      <Paper style={{ padding: 12 }}>
         <Grid container alignItems="flex-start" spacing={2}>
           <Grid item xs={5} fullWidth={true}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
