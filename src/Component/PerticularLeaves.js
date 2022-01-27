@@ -29,7 +29,7 @@ function PerticularLeaves(props) {
         .then(async (response) => {
           setList(response.data);
         })
-        .catch(function (error) {});
+        .catch();
     }
     fetchAPI();
   }, [Date]);

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,7 +10,6 @@ import Image1 from './images/signupposter2.png';
 import Squad from './images/Squadstackround.png';
 
 import axios from '../AxiosInstance';
-import styles from '../App.css';
 
 const FormData = require('form-data');
 

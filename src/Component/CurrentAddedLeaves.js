@@ -7,7 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 import axios from '../AxiosInstance';
 import Title from './Title';
 
-function CurLeaves() {
+function CurrentAddedLeaves() {
   const [list, setList] = React.useState([]);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function CurLeaves() {
         .then(async (response) => {
           setList(response.data);
         })
-        .catch(function (error) {});
+        .catch();
     }
 
     fetchAPI();
@@ -67,4 +67,4 @@ function CurLeaves() {
   );
 }
 
-export default CurLeaves;
+export default CurrentAddedLeaves;

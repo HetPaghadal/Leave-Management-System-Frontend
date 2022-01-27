@@ -1,5 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import { Button } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -109,11 +108,6 @@ function dateFormat(Date) {
 
 function Dash() {
   const classes = useStyles();
-  const navigate = useNavigate();
-  const logout = () => {
-    localStorage.clear();
-    navigate('/');
-  };
 
   const [pLeave, setPLeave] = useState(false);
   const [date, setDate] = useState('');
