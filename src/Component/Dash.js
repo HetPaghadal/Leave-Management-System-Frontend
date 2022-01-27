@@ -128,7 +128,7 @@ function Dash() {
             </Grid>
             <Grid item xs={4}>
               <Paper className={classes.paper}>
-                <Title>Get_Perticular_Day_Leaves</Title>
+                <Title>Get Perticular Day Leaves</Title>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     value={date}

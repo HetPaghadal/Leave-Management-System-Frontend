@@ -9,7 +9,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import Button from '@material-ui/core/Button';
 
-// import styles from '../App.css';
+import styles from '../App.css';
 
 const axios = require('axios');
 const FormData = require('form-data');
@@ -60,7 +60,7 @@ function Form({ handleClose }) {
 
   return (
     <FormControl>
-      <Paper style={{ padding: 12 }}>
+      <Paper className="center">
         <Grid container alignItems="flex-start" spacing={2}>
           <Grid item xs={5} fullWidth={true}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>

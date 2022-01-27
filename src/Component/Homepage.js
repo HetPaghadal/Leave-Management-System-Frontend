@@ -116,8 +116,7 @@ function Homepage() {
   // After Successfully Login
   const onSuccess = async (res) => {
     const Auth = res.code;
-    // await generateRefreshToken(Auth);
-
+    await generateRefreshToken(Auth);
     navigate('/dashboard');
   };
 
