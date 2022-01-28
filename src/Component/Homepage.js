@@ -52,7 +52,7 @@ function Homepage() {
     data.append('client_id', process.env.REACT_APP_CLIENT_KEY);
     data.append('client_secret', process.env.REACT_APP_CLIENT_SECRET);
     data.append('grant_type', 'authorization_code');
-    data.append('redirect_uri', 'https://leaves-tracker1.netlify.app');
+    data.append('redirect_uri', process.env.REACT_APP_REDIRECT_URL);
 
     let config = {
       method: 'post',

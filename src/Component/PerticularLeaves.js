@@ -12,27 +12,24 @@ function PerticularLeaves(props) {
   const { Date } = props;
 
   useEffect(() => {
-    async function fetchAPI() {
-      let Token = localStorage.getItem('django_Token');
-      Token = `token ${Token}`;
-      const data = new FormData();
-      const config = {
-        method: 'get',
-        url: `leaves/leaves/?date=${Date}`,
-        headers: {
-          Authorization: Token,
-        },
-        data,
-      };
+    let Token = localStorage.getItem('django_Token');
+    Token = `token ${Token}`;
+    const data = new FormData();
+    const config = {
+      method: 'get',
+      url: `leaves/leaves/?date=${Date}`,
+      headers: {
+        Authorization: Token,
+      },
+      data,
+    };
 
-      await axios(config)
-        .then(async (response) => {
-          setList(response.data);
-        })
-        .catch();
-    }
-    fetchAPI();
-  });
+    axios(config)
+      .then(async (response) => {
+        setList(response.data);
+      })
+      .catch();
+  }, [Date]);
 
   return (
     <>
