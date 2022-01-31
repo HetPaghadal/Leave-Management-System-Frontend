@@ -41,7 +41,7 @@ function Form({ handleClose }) {
 
     const config = {
       method: 'post',
-      url: 'http://127.0.0.1:8000/leaves/leaves/',
+      url: '/leaves/leaves/',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: Token,
