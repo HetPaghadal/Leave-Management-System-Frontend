@@ -195,7 +195,9 @@ function Homepage() {
               >
                 Welcome to
                 <br />
-                Leave management tracker!
+                Leaves
+                <br />
+                Tracker!
               </Typography>
 
               <GoogleLogin
