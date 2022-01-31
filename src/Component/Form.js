@@ -41,7 +41,7 @@ function Form({ handleClose }) {
 
     const config = {
       method: 'post',
-      url: '/leaves/leaves/',
+      url: `${process.env.REACT_APP_BACKEND_URL}leaves/leaves/`,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: Token,
