@@ -69,7 +69,8 @@ function Homepage() {
         localStorage.setItem('Refresh_Token', response.data.refresh_token);
         localStorage.setItem('Gen_Date', new Date().getTime());
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error);
         localStorage.clear();
         navigate('/');
       });
