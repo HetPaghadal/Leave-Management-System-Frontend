@@ -26,10 +26,6 @@
   color: rgb(112, 76, 182);
 }
 
-.center {
-  padding: 37;
-}
-
 @keyframes App-logo-float {
   0% {
     transform: translateY(0);
