@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
 
+import Router from './Route';
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">Welcome to SquadStack!</header>
+    <div>
+      <header>
+        <Router />
+      </header>
     </div>
   );
 }
